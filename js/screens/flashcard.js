@@ -1,7 +1,7 @@
 import { getChapters, getTermsByChapter, getFormulasByChapter, getTermById, getFormulaById } from '../data.js';
 import { getSrsState, applyGrade, isDue, GRADES, srsId } from '../srs.js';
 import { recordActivityToday } from '../db.js';
-import { renderMath } from '../katexHelper.js';
+import { renderMath, renderMathAuto } from '../katexHelper.js';
 import { shuffle } from '../data.js';
 import { navigateTo } from '../router.js';
 
@@ -202,6 +202,7 @@ function runSession(container, cards) {
       revealed = true;
       container.querySelector('#face-content').innerHTML = `<div class="answer-block">${backHtml}</div>`;
       renderMath(container);
+      renderMathAuto(container);
       renderGradeButtons(card);
     });
   }

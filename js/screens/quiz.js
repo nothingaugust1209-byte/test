@@ -4,7 +4,7 @@ import {
 } from '../data.js';
 import { getSrsState, applyGrade, GRADES } from '../srs.js';
 import { recordActivityToday, db } from '../db.js';
-import { renderMath } from '../katexHelper.js';
+import { renderMath, renderMathAuto } from '../katexHelper.js';
 import { navigateTo } from '../router.js';
 
 export async function render(container, params) {
@@ -241,6 +241,7 @@ function startQuiz(container, pool, setup) {
     `;
     renderTimer(container.querySelector('#timer-area'));
     renderMath(container);
+    renderMathAuto(container);
 
     const answerArea = container.querySelector('#answer-area');
     if (q.kind === 'mc') {
@@ -268,6 +269,7 @@ function startQuiz(container, pool, setup) {
         revealArea.innerHTML = q.revealHtml;
         revealArea.classList.add('show');
         renderMath(revealArea);
+        renderMathAuto(revealArea);
         answerArea.querySelector('#reveal-btn').remove();
         const gradeArea = container.querySelector('#self-grade-area');
         gradeArea.classList.add('show');
@@ -290,6 +292,7 @@ function startQuiz(container, pool, setup) {
           revealArea.innerHTML = q.revealHtml;
           revealArea.classList.add('show');
           renderMath(revealArea);
+          renderMathAuto(revealArea);
         }, { once: true });
       });
     }

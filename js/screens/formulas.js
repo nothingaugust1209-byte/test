@@ -3,7 +3,7 @@ import {
   getTermsByChapter, getAllTerms, getTermById,
   searchFormulas, searchTerms, getChapters, CHAPTER_NAMES
 } from '../data.js';
-import { renderMath } from '../katexHelper.js';
+import { renderMath, renderMathAuto } from '../katexHelper.js';
 
 const state = {
   mode: 'formula', // 'formula' | 'term'
@@ -105,6 +105,7 @@ export async function render(container) {
     }
     list.innerHTML = items.map((item) => (state.mode === 'formula' ? formulaCardHtml(item) : termCardHtml(item))).join('');
     renderMath(list);
+    renderMathAuto(list);
 
     list.querySelectorAll('[data-toggle-derivation]').forEach((el) => {
       el.addEventListener('click', () => {
