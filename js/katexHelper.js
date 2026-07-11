@@ -11,3 +11,18 @@ export function renderMath(container) {
     }
   });
 }
+
+// 計算問題画面用：本文中の $...$ / \[...\] を自動検出してレンダリングする（KaTeX auto-render拡張）。
+// 用語・公式カードは data-latex 方式のままなので、こちらは calc.js からのみ呼び出す。
+export function renderMathAuto(container) {
+  if (typeof window === 'undefined' || typeof window.renderMathInElement !== 'function') return;
+  window.renderMathInElement(container, {
+    delimiters: [
+      { left: '\\[', right: '\\]', display: true },
+      { left: '\\(', right: '\\)', display: false },
+      { left: '$$', right: '$$', display: true },
+      { left: '$', right: '$', display: false }
+    ],
+    throwOnError: false
+  });
+}

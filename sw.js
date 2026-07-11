@@ -2,7 +2,7 @@
 // 戦略：ネットワーク優先（常に最新を取りに行き、失敗した時だけキャッシュを使う）
 // 以前のバージョンはJSファイルを一部しかキャッシュしておらず、キャッシュ命中もネットワーク取得も
 // 失敗した際に respondWith(undefined) となり、画面の中身が表示されない不具合があったため修正。
-const CACHE_NAME = 'jouhouriron-app-v2';
+const CACHE_NAME = 'jouhouriron-app-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const APP_SHELL = [
   './css/style.css',
   './data/terms.json',
   './data/formulas.json',
+  './data/calc.json',
   './js/app.js',
   './js/data.js',
   './js/db.js',
@@ -19,6 +20,7 @@ const APP_SHELL = [
   './js/screens/home.js',
   './js/screens/flashcard.js',
   './js/screens/formulas.js',
+  './js/screens/calc.js',
   './js/screens/quiz.js',
   './js/screens/progress.js',
   './icons/icon-192.png',

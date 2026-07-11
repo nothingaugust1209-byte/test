@@ -3,6 +3,7 @@ import { registerRoute, initRouter } from './router.js';
 import * as home from './screens/home.js';
 import * as flashcard from './screens/flashcard.js';
 import * as formulas from './screens/formulas.js';
+import * as calc from './screens/calc.js';
 import * as quiz from './screens/quiz.js';
 import * as progress from './screens/progress.js';
 
@@ -12,6 +13,7 @@ async function main() {
   registerRoute('home', home.render);
   registerRoute('flashcard', flashcard.render);
   registerRoute('formulas', formulas.render);
+  registerRoute('calc', calc.render);
   registerRoute('quiz', quiz.render);
   registerRoute('progress', progress.render);
 
