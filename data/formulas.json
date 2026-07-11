@@ -1,0 +1,360 @@
+[
+  {
+    "id": "f-kraft",
+    "chapter": 4,
+    "name": "クラフトの不等式",
+    "latex": "\\sum_{j=1}^{J} r^{-l_j} \\le 1",
+    "meaning": "長さがl1,...,lJとなるJ個の符号語を持つr元符号で、瞬時複合可能なものが存在するための必要十分条件",
+    "derivation": [
+      "符号語を木の葉として捉える。木の根から見て浅い葉（短い符号語）ほど、木の『分岐の資源』を多く消費する",
+      "r元符号で長さljの符号語1つが消費する資源はr^{-lj}とみなせる",
+      "すべての符号語が消費する資源の合計が1（木全体の分岐能力）を超えなければ、重ならずに配置できる＝瞬時複合可能な符号が作れる",
+      "注意：不等式が成立しても、実際にシンボルをどう割り当てるかまでは保証しないため、必ずしも瞬時複合可能とは限らない（対偶＝不成立なら瞬時複合不可能、は必ず真）"
+    ],
+    "relatedFormulaIds": ["f-heikin-fugocho", "f-compact-jouken"]
+  },
+  {
+    "id": "f-heikin-fugocho",
+    "chapter": 4,
+    "name": "平均符号長",
+    "latex": "L = \\sum_{j=1}^{J} P(s_j) l_j",
+    "meaning": "各情報源シンボルの生起確率P(sj)で符号語長ljを重み付けした平均値。小さいほど効率のよい符号",
+    "derivation": [
+      "情報源シンボルsjに対応する符号語の長さをljとする",
+      "生起確率が高いシンボルほど多く出現するので、その符号語長の影響が平均に強く反映される",
+      "これがL = ΣP(sj)ljという重み付き平均の式になる"
+    ],
+    "relatedFormulaIds": ["f-fugocho-genkai", "f-kouritsu", "f-compact-jouken"]
+  },
+  {
+    "id": "f-fugocho-genkai",
+    "chapter": 4,
+    "name": "瞬時複合可能な符号における符号長の下限",
+    "latex": "H(S) \\le L",
+    "meaning": "平均符号長Lは、無記憶情報源Sのエントロピー（2進単位）を下回ることはできない",
+    "derivation": [
+      "H(S)/log2(r) ≤ L という式を、log_r(1/P(si))を使って変形していくと導かれる",
+      "平均符号長Lは情報量とは元々無関係に定義された量だが、実際にはエントロピーが理論的な下限になっていることが示される",
+      "この下限にどれだけ近づけるかが、情報源符号化定理のテーマになる"
+    ],
+    "relatedFormulaIds": ["f-heikin-fugocho", "f-jouhougen-fugoka-teiri"]
+  },
+  {
+    "id": "f-kouritsu",
+    "chapter": 4,
+    "name": "符号の効率と冗長度",
+    "latex": "\\eta = \\frac{H_r(S)}{L}, \\quad \\text{冗長度} = 1-\\eta",
+    "meaning": "符号長Lに対するHr(S)（r元単位のエントロピー）の比率が効率η。1に近いほど無駄がない",
+    "derivation": [
+      "H(S) ≤ L より η = Hr(S)/L ≤ 1 が常に成り立つ",
+      "冗長度は『情報として余分な部分がどの程度含まれるか』を表すため 1-η と定義される"
+    ],
+    "relatedFormulaIds": ["f-heikin-fugocho"]
+  },
+  {
+    "id": "f-compact-jouken",
+    "chapter": 4,
+    "name": "瞬時複合可能かつコンパクトな符号の符号語長の条件",
+    "latex": "\\log_r \\frac{1}{P(s_j)} = l_j",
+    "meaning": "各符号語長ljをこの式で決めれば、瞬時複合可能かつコンパクト（平均符号長最小）な符号になる。ただし右辺が整数になるとは限らない",
+    "derivation": [
+      "生起確率P(sj)が大きいシンボルほど短い符号語を、小さいシンボルほど長い符号語を割り当てたい",
+      "log_r(1/P(sj))を符号語長として使えば理論上最適になるが、この値が整数でない場合はH(S)=Lが成立しなくなる（シャノン符号などでは切り上げて使う）"
+    ],
+    "relatedFormulaIds": ["f-heikin-fugocho", "f-jouhougen-fugoka-teiri"]
+  },
+  {
+    "id": "f-jouhougen-fugoka-teiri",
+    "chapter": 4,
+    "name": "情報源符号化定理",
+    "latex": "\\frac{H(S)}{\\log_2 r} \\le L < \\frac{H(S)}{\\log_2 r} + \\epsilon",
+    "meaning": "任意の一意複合可能なr元符号の平均符号長Lはこの下限を下回れない。しかし任意の小さな正数εに対し、Lをこの下限+ε未満にできる瞬時符号が必ず存在する",
+    "derivation": [
+      "左側の不等式は符号長の下限（H(S)/log2r ≤ L）を示す",
+      "右側は『どんなに小さいεを指定しても、それを満たす符号が作れる』という存在性を保証する",
+      "つまり平均符号長はエントロピーまでしか理論的に縮められないが、工夫すればエントロピーぎりぎりまで近づけられる、という2段構えの主張になっている"
+    ],
+    "relatedFormulaIds": ["f-fugocho-genkai", "f-compact-jouken"]
+  },
+  {
+    "id": "f-shannon-tejun",
+    "chapter": 4,
+    "name": "シャノン符号の構成手順",
+    "latex": "l_j = \\lceil -\\log P(t_j) \\rceil, \\quad u_1=0,\\ u_j = u_{j-1}+P(t_{j-1})",
+    "meaning": "生起確率の降順に並べたシンボルtjについて符号語長ljと累積確率ujを計算し、ujを2進数展開した小数点以下lj桁を符号語とする",
+    "derivation": [
+      "①情報源シンボルを生起確率の降順に並べ t1,...,tJ とする",
+      "②符号語長 lj = ⌈-log P(tj)⌉ を計算する（切り上げ）",
+      "③累積確率 u1=0, uj = u(j-1) + P(t(j-1)) を順に計算する",
+      "④ujを2進数展開し、小数点以下lj桁までの系列をtjの符号語とする"
+    ],
+    "relatedFormulaIds": ["f-compact-jouken"]
+  },
+  {
+    "id": "f-fano-tejun",
+    "chapter": 4,
+    "name": "ファノ符号の構成手順",
+    "latex": "\\min \\left| \\sum_{i=1}^{j} P(t_i) - \\sum_{i=j+1}^{J} P(t_i) \\right|",
+    "meaning": "生起確率の降順に並べたシンボルを、確率の合計差が最小になるよう2グループに分割し0/1を割り当てることを繰り返す",
+    "derivation": [
+      "①情報源シンボルを生起確率の降順に並べ t1,...,tJ とする",
+      "②累積確率の差ができるだけ小さくなるように{t1,...,tj}と{t(j+1),...,tJ}の2グループに分割し、一方に0、他方に1を割り当てる",
+      "③それぞれのグループについて②を繰り返し、各グループの要素数が1になったら終了",
+      "根から葉に向かって木を組み立てるトップダウン方式"
+    ],
+    "relatedFormulaIds": ["f-shannon-tejun"]
+  },
+  {
+    "id": "f-huffman-tejun",
+    "chapter": 4,
+    "name": "ハフマン符号の構成手順",
+    "latex": "\\text{最小確率2つを併合} \\to \\text{シンボル数2まで繰り返す} \\to \\text{逆順に0,1を割当}",
+    "meaning": "確率最小の2シンボルを繰り返し併合（縮退情報源を構成）し、最後から遡って0/1を割り当てる。コンパクト符号になることが保証される",
+    "derivation": [
+      "①情報源シンボルを生起確率の降順に並べる",
+      "②最後尾（最小確率）の2個のシンボルをまとめて縮退情報源を構成する",
+      "③①②をシンボル数が2になるまで繰り返す",
+      "④最後の縮退から一段ずつ遡って順次0,1を割り当てる（葉から根へのボトムアップ方式）",
+      "コンパクト符号の性質：生起確率が大きいシンボルほど符号語長は短くなり、木を考えたとき最後の枝だけが異なる最長の符号語が少なくとも2つ存在する"
+    ],
+    "relatedFormulaIds": ["f-compact-jouken"]
+  },
+
+  {
+    "id": "f-p-bk",
+    "chapter": 5,
+    "name": "受信シンボルの生起確率",
+    "latex": "P(b_k) = \\sum_{j=1}^{J} P(a_j) P(b_k|a_j)",
+    "meaning": "出力シンボルbkが受信される確率は、各入力シンボルajの生起確率と通信路行列の値の積の総和で求まる",
+    "derivation": [
+      "bkが受信されるのは『ajが送られて、かつajがbkとして受信される』という事象がどれかのjで起きたとき",
+      "各jについての同時確率P(aj)P(bk|aj)をすべてのjについて足し合わせれば、bk単独の生起確率が得られる（全確率の定理）"
+    ],
+    "relatedFormulaIds": ["f-bayes"]
+  },
+  {
+    "id": "f-bayes",
+    "chapter": 5,
+    "name": "ベイズの定理（通信路への適用）",
+    "latex": "P(a_j|b_k) = \\frac{P(a_j)P(b_k|a_j)}{\\sum_{j=1}^{J} P(a_j)P(b_k|a_j)}",
+    "meaning": "P(aj)と前向き確率P(bk|aj)から、後向き確率P(aj|bk)を計算する式",
+    "derivation": [
+      "同時確率の2通りの表し方 P(aj,bk)=P(aj)P(bk|aj)=P(bk)P(aj|bk) から P(aj|bk)=P(aj)P(bk|aj)/P(bk)",
+      "分母のP(bk)を全確率の定理 P(bk)=ΣP(aj)P(bk|aj) で置き換えると上式が得られる"
+    ],
+    "relatedFormulaIds": ["f-p-bk"]
+  },
+  {
+    "id": "f-jizen-entropy-tsushinro",
+    "chapter": 5,
+    "name": "事前エントロピー",
+    "latex": "H(A) = \\sum_{j=1}^{J} P(a_j) \\log \\frac{1}{P(a_j)}",
+    "meaning": "受信前における入力シンボルAの不確実さの度合い",
+    "derivation": [
+      "情報量の定義 log(1/P(aj)) を、各シンボルの生起確率P(aj)で重み付き平均したもの（第2章のエントロピーの定義と同じ形）"
+    ],
+    "relatedFormulaIds": ["f-jigo-entropy", "f-aimaido"]
+  },
+  {
+    "id": "f-jigo-entropy",
+    "chapter": 5,
+    "name": "事後エントロピー",
+    "latex": "H(A|b_k) = \\sum_{j=1}^{J} P(a_j|b_k) \\log \\frac{1}{P(a_j|b_k)}",
+    "meaning": "特定の出力bkを受信した後でのAの不確実さの度合い",
+    "derivation": [
+      "事前確率P(aj)の代わりに事後確率P(aj|bk)を使ってエントロピーと同じ形の式を作ったもの",
+      "すべてのbkについて、この値をP(bk)で重み付き平均すると曖昧度H(A|B)になる"
+    ],
+    "relatedFormulaIds": ["f-jizen-entropy-tsushinro", "f-aimaido"]
+  },
+  {
+    "id": "f-aimaido",
+    "chapter": 5,
+    "name": "曖昧度",
+    "latex": "H(A|B) = \\sum_{k=1}^{K} P(b_k) H(A|b_k) = \\sum_{j,k} P(a_j,b_k)\\log\\frac{1}{P(a_j|b_k)}",
+    "meaning": "受信側から見た入力シンボルAについての不確実さ。通信路に誤りがなければ0になる",
+    "derivation": [
+      "各bkについての事後エントロピーH(A|bk)を、bkの生起確率P(bk)で重み付き平均する",
+      "結合確率P(aj,bk)を使って書き直すと、二重和の形になる"
+    ],
+    "relatedFormulaIds": ["f-jigo-entropy", "f-sanpudo", "f-sogo-jouhouryo"]
+  },
+  {
+    "id": "f-sanpudo",
+    "chapter": 5,
+    "name": "散布度",
+    "latex": "H(B|A) = \\sum_{j=1}^{J} P(a_j) \\sum_{k=1}^{K} P(b_k|a_j)\\log\\frac{1}{P(b_k|a_j)} = \\sum_{j,k} P(a_j,b_k)\\log\\frac{1}{P(b_k|a_j)}",
+    "meaning": "入力Aを固定したときに、通信路上の誤りによって出力Bがどれだけばらつくかを表す量",
+    "derivation": [
+      "曖昧度H(A|B)のAとBの役割を入れ替えた形。条件付けの向きが逆になっている点に注意"
+    ],
+    "relatedFormulaIds": ["f-aimaido", "f-sogo-jouhouryo"]
+  },
+  {
+    "id": "f-sogo-jouhouryo",
+    "chapter": 5,
+    "name": "相互情報量",
+    "latex": "I(A;B) = H(A) - H(A|B) = H(B) - H(B|A) = H(A)+H(B)-H(A,B)",
+    "meaning": "通信路を通すことでAについての不確実さがどれだけ減少したか（＝通信路が実際に運んだ情報量）。0 ≤ I(A;B) ≤ H(A)",
+    "derivation": [
+      "受信前のAの不確実さH(A)から、受信後に残る不確実さH(A|B)を引くと、Bによって『解消された』不確実さが求まる",
+      "結合エントロピーH(A,B)=H(A)+H(B|A)=H(B)+H(A|B)の関係を使うと、H(A)+H(B)-H(A,B)という対称な形にも書き直せる",
+      "通信路が誤りなく情報を伝えるほどI(A;B)はH(A)に近づき、通信路がランダムに壊れる（p=0.5など）ほどI(A;B)は0に近づく"
+    ],
+    "relatedFormulaIds": ["f-aimaido", "f-sanpudo", "f-tsushinro-youryo"]
+  },
+  {
+    "id": "f-tsushinro-youryo",
+    "chapter": 5,
+    "name": "通信路容量",
+    "latex": "C = \\max_{P(a_1)+\\cdots+P(a_J)=1} I(A;B)",
+    "meaning": "入力シンボルの生起確率をどう選んでも、これ以上は情報を運べないという相互情報量I(A;B)の最大値",
+    "derivation": [
+      "I(A;B)を入力の確率分布P(aj)の関数とみなし、その最大値を求める",
+      "2元対称通信路の場合、入力が等確率（P(a1)=0.5）のときに最大となり C = 1 - H(p) となる",
+      "一般の通信路では C = log(Σ2^xk) という形（ラグランジュの未定乗数法による導出）で表せる"
+    ],
+    "relatedFormulaIds": ["f-sogo-jouhouryo", "f-r-taisho-youryo"]
+  },
+  {
+    "id": "f-ippanteki-youryo",
+    "chapter": 5,
+    "name": "一般的な通信路容量の公式",
+    "latex": "C = \\log \\sum_{k=1}^{K} 2^{x_k}",
+    "meaning": "散布度連立方程式の解xkを使って、任意の通信路（正方行列の場合）の通信路容量を計算する一般式",
+    "derivation": [
+      "相互情報量I(A;B)を最大化する条件をラグランジュの未定乗数法で導くと、P(bk)=2^{xk-C}という関係が得られる",
+      "すべてのkについて総和を取ると1=2^{-C}Σ2^{xk}となり、これをCについて解くと上式になる",
+      "xkは散布度連立方程式 Σ_k P(bk|aj)xk = Σ_k P(bk|aj)logP(bk|aj) を解いて求める（通信路行列が正方行列のときに使える方法）"
+    ],
+    "relatedFormulaIds": ["f-tsushinro-youryo", "f-sanpudo-renritsu-houteishiki"]
+  },
+  {
+    "id": "f-sanpudo-renritsu-houteishiki",
+    "chapter": 5,
+    "name": "散布度連立方程式",
+    "latex": "\\sum_{k=1}^{K} P(b_k|a_j)x_k = \\sum_{k=1}^{K} P(b_k|a_j)\\log P(b_k|a_j)",
+    "meaning": "xkを求める方程式（各jについて方程式を立てる）。右辺をエントロピーで表すと-H(B|aj)",
+    "derivation": [
+      "一般的な通信路容量 C = log Σ2^xk の xk は、この散布度連立方程式を解いて求める（J本の方程式を立てる）",
+      "①散布度連立方程式を立てて解く（J本）",
+      "②C=logΣ2^xkの式に①の答えを代入して C=log(2^x1+2^x2+...) を計算する",
+      "通信路行列Pが正方行列（J=K）の場合に限りこの方法が適用できる"
+    ],
+    "relatedFormulaIds": ["f-ippanteki-youryo", "f-tsushinro-youryo"]
+  },
+  {
+    "id": "f-r-taisho-youryo",
+    "chapter": 5,
+    "name": "r元対称通信路の通信路容量",
+    "latex": "C = \\log r - \\mathcal{H}(p) - p\\log(r-1)",
+    "meaning": "r元対称通信路（誤り率p）の通信路容量。2元対称通信路（r=2）ではC = 1 - H(p)となる",
+    "derivation": [
+      "二重に一様な通信路ではすべてのkについてP(bk)=1/Kとなり H(B)=logK=logr",
+      "C = logK - Σ P(bk|aj)log(1/P(bk|aj)) にr元対称通信路の通信路行列を代入して整理すると上式が得られる"
+    ],
+    "relatedFormulaIds": ["f-tsushinro-youryo"]
+  },
+
+  {
+    "id": "f-heikin-ayamari-ritsu",
+    "chapter": 6,
+    "name": "平均誤り率",
+    "latex": "P_e = 1 - \\sum_{k=1}^{K} P\\big(d(b_k)\\big) P\\big(b_k \\mid d(b_k)\\big)",
+    "meaning": "ある判定規則d(bk)を用いたときに、送信シンボルの判定を誤る確率の平均値。これを最小化するのがMAP（最大事後確率判定規則）",
+    "derivation": [
+      "bkが出力されたという条件下での誤り率は 1-P(d(bk)|bk)",
+      "これを各bkの生起確率P(bk)で重み付き平均し、ベイズの定理 P(aj|bk)=P(aj)P(bk|aj)/P(bk) を使って整理すると上式になる",
+      "P(d(bk)|bk)を最大化するように判定規則を作れば（＝MAP）、平均誤り率が最小になる"
+    ],
+    "relatedFormulaIds": []
+  },
+  {
+    "id": "f-jouhou-densou-sokudo",
+    "chapter": 6,
+    "name": "情報伝送速度",
+    "latex": "R = \\frac{\\log M}{n}",
+    "meaning": "n次拡大通信路でJ^n通りの系列からM個を選んで符号語としたとき、1シンボルあたりが伝送する情報量",
+    "derivation": [
+      "M個の符号語が等確率で生起すると仮定すると、そのエントロピーはlogM",
+      "これをn個のシンボル分の伝送とみなして1シンボルあたりに均すと R=logM/n になる",
+      "冗長な系列を増やす（nを増やしてMを増やさない）ほど、Rは低下する＝伝送速度と信頼性はトレードオフの関係になりがちだが、工夫次第でRを保ったまま誤り率を下げることも可能（通信路符号化定理）"
+    ],
+    "relatedFormulaIds": ["f-heikin-ayamari-ritsu", "f-tsushinro-fugoka-teiri"]
+  },
+  {
+    "id": "f-hamming-kyori",
+    "chapter": 6,
+    "name": "ハミング距離",
+    "latex": "d_H(\\boldsymbol{a},\\boldsymbol{b}) = \\sum_{i=1}^{n} \\delta(a_i,b_i), \\quad \\delta(x,y)=\\begin{cases}0 & x=y\\\\ 1 & x\\ne y\\end{cases}",
+    "meaning": "2つの系列a, bにおいて対応する位置のシンボルが異なる個数",
+    "derivation": [
+      "各位置iについて、値が違えば1、同じなら0を返す関数δ(ai,bi)を用意する",
+      "これをすべての位置について足し合わせると、異なる箇所の総数＝ハミング距離になる",
+      "2元系列の場合、δ(ai,bi)は排他的論理和（XOR）と同じ"
+    ],
+    "relatedFormulaIds": ["f-hamming-omomi"]
+  },
+  {
+    "id": "f-hamming-omomi",
+    "chapter": 6,
+    "name": "ハミング重み",
+    "latex": "\\omega_H(\\boldsymbol{a}) = d_H(\\boldsymbol{a},\\boldsymbol{0}) = \\sum_{i=1}^n a_i \\ (\\text{2元系列の場合})",
+    "meaning": "系列aと全て0の系列0とのハミング距離。2元系列の場合はaに含まれる1の個数と一致する",
+    "derivation": [
+      "ハミング距離の定義でb=0（すべて0の系列）とした特別なケース",
+      "2元系列であれば、0との違いの個数＝1が立っている個数になる"
+    ],
+    "relatedFormulaIds": ["f-hamming-kyori"]
+  },
+  {
+    "id": "f-gosa-teisei-jouken",
+    "chapter": 6,
+    "name": "誤り訂正が可能な条件",
+    "latex": "d_{min} \\ge 2t+1",
+    "meaning": "符号の最小距離dminがこの条件を満たせば、t個以下の誤りを確実に訂正できる",
+    "derivation": [
+      "各符号語を中心とする半径tのハミング球を考える",
+      "dmin ≥ 2t+1 であれば、どの2つの球も共通の系列を持たない（重ならない）ことが図形的に示せる",
+      "受信語に最も近い符号語（＝それを中心とするハミング球に入っている符号語）を複合結果として採用すれば、t個以下の誤りは必ず正しい符号語に戻せる"
+    ],
+    "relatedFormulaIds": ["f-gosa-teisei-kenshutsu-jouken", "f-gosa-kenshutsu-jouken"]
+  },
+  {
+    "id": "f-gosa-teisei-kenshutsu-jouken",
+    "chapter": 6,
+    "name": "誤り訂正+検出が可能な条件",
+    "latex": "d_{min} \\ge 2t + t' + 1",
+    "meaning": "t個以下の誤り訂正と、t+t'個以下の誤り検出（訂正はできないが誤りには気づける）を両立するための条件",
+    "derivation": [
+      "半径tの訂正用の球の外側に、さらに半径t'の検出用の領域を考える",
+      "t+1個以上t+t'個以下の誤りについては、訂正はできないが『他の符号語の訂正可能領域には入らない』ため検出は可能",
+      "t=0とすると誤り検出のみの条件 dmin ≥ t'+1 に一致する"
+    ],
+    "relatedFormulaIds": ["f-gosa-teisei-jouken", "f-gosa-kenshutsu-jouken"]
+  },
+  {
+    "id": "f-gosa-kenshutsu-jouken",
+    "chapter": 6,
+    "name": "誤り検出のみが可能な条件",
+    "latex": "d_{min} \\ge t' + 1",
+    "meaning": "訂正は行わず検出のみを目的とする場合、この条件を満たせばt'個以下の誤りを検出できる",
+    "derivation": [
+      "誤り訂正+検出の条件 dmin ≥ 2t+t'+1 において t=0（訂正は行わない）とおくと得られる"
+    ],
+    "relatedFormulaIds": ["f-gosa-teisei-kenshutsu-jouken"]
+  },
+  {
+    "id": "f-tsushinro-fugoka-teiri",
+    "chapter": 6,
+    "name": "通信路符号化定理",
+    "latex": "R < C \\implies \\exists\\, \\text{符号（}n\\to\\infty\\text{でPe}\\to 0\\text{）}",
+    "meaning": "通信路容量Cより小さい情報伝送速度Rであれば、符号語長nを十分大きくすることで平均誤り率Peをいくらでも小さくできる符号が存在する",
+    "derivation": [
+      "n次拡大通信路を考え、入力系列の集合からM=2^{nR}個を選び出して符号語とする",
+      "nを大きくしていくと、R<Cの範囲であれば平均誤り率Peをいくらでも0に近づけられる符号の存在が証明される（存在を保証するのみで、具体的な構成法までは示さない）",
+      "雑音のない通信路の場合はこの定理は情報源符号化定理そのものに帰着する（R=C-εの形で平均符号長をエントロピーに近づけられる）"
+    ],
+    "relatedFormulaIds": ["f-jouhou-densou-sokudo", "f-tsushinro-youryo"]
+  }
+]

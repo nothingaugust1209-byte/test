@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>情報理論 徹底対策アプリ</title>
+<meta name="description" content="情報理論（情報源符号化・通信路・通信路符号化）のテスト対策アプリ">
+<meta name="theme-color" content="#2b6cb0">
+
+<!-- PWA: Android / Chrome -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+
+<!-- PWA: iOS Safari (manifestを見ないため個別にmetaで指定) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="情報理論対策">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>情報理論 徹底対策</h1>
+      <div class="streak-badge" id="streak-badge">🔥 0日</div>
+    </header>
+
+    <main id="main-view" class="main-view"></main>
+
+    <nav class="bottom-nav">
+      <a href="#/home" class="nav-item" data-route="home">
+        <span class="nav-icon">🏠</span><span class="nav-label">ホーム</span>
+      </a>
+      <a href="#/flashcard" class="nav-item" data-route="flashcard">
+        <span class="nav-icon">🗂️</span><span class="nav-label">カード</span>
+      </a>
+      <a href="#/formulas" class="nav-item" data-route="formulas">
+        <span class="nav-icon">Σ</span><span class="nav-label">公式</span>
+      </a>
+      <a href="#/quiz" class="nav-item" data-route="quiz">
+        <span class="nav-icon">✏️</span><span class="nav-label">クイズ</span>
+      </a>
+      <a href="#/progress" class="nav-item" data-route="progress">
+        <span class="nav-icon">📊</span><span class="nav-label">進捗</span>
+      </a>
+    </nav>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

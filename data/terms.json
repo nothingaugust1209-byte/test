@@ -1,0 +1,644 @@
+[
+  {
+    "id": "ch4-jouhougen-fugoka-gainen",
+    "chapter": 4,
+    "term": "情報源符号化",
+    "shortDef": "情報源から送信される情報の量を減らす",
+    "intuition": "同じ内容をより少ないビット数で送れるように、情報源シンボルを符号シンボルに変換すること。これから出てくる「符号」「符号語」「一意複合可能性」などは、すべてこの目的（情報量を減らしつつ元に戻せるようにする）のための道具立て。",
+    "relatedTerms": ["ch4-fugoka", "ch4-jouhougen-fugoka-teiri"],
+    "confusedWith": [],
+    "tags": ["符号化", "基礎"]
+  },
+  {
+    "id": "ch4-fugoka",
+    "chapter": 4,
+    "term": "符号化（Coding / Encoding）",
+    "shortDef": "あるアルファベットに属するシンボルの系列から、別のアルファベットに属するシンボルの系列への写像",
+    "intuition": "「s1, s2, s3...」という元の記号を「0, 10, 110...」のような別の記号列に置き換えるルールのこと。翻訳のようなもので、どのシンボルにどの符号語を割り当てるかを決める作業全体を指す。",
+    "relatedTerms": ["ch4-fugogo", "ch4-block-fugo", "ch4-chikuji-fugo", "ch4-fukugoka"],
+    "confusedWith": [],
+    "tags": ["符号化", "基礎"]
+  },
+  {
+    "id": "ch4-fukugoka",
+    "chapter": 4,
+    "term": "複合化",
+    "shortDef": "符号語から元の情報源シンボルの系列を復元すること",
+    "intuition": "符号化の逆操作。「0, 10, 110...」という符号語の系列を見て、元の「s1, s2, s3...」に戻す作業。これが常にうまくいく（一意に戻せる）かどうかが、特異／非特異、一意複合可能性、瞬時複合可能性という一連の概念のテーマになる。",
+    "relatedTerms": ["ch4-fugoka", "ch4-ichii-fukugo", "ch4-shunji-fukugo"],
+    "confusedWith": [],
+    "tags": ["符号化", "基礎"]
+  },
+  {
+    "id": "ch4-fugogo",
+    "chapter": 4,
+    "term": "符号語（codeword）",
+    "shortDef": "情報源シンボル1つに対応づけられる符号シンボルの系列",
+    "intuition": "「s1→0」の「0」の部分。単語帳でいう「訳語」にあたる。符号語の長さ（0や1が何個並んでいるか）が符号語長。",
+    "relatedTerms": ["ch4-fugoka", "ch4-heikin-fugocho", "ch4-fugogocho"],
+    "confusedWith": [],
+    "tags": ["符号化", "基礎"]
+  },
+  {
+    "id": "ch4-fugogocho",
+    "chapter": 4,
+    "term": "符号語長",
+    "shortDef": "可変長符号（確率大＝符号短）、固定長符号",
+    "intuition": "符号語の長さそのもの。生起確率が大きいシンボルほど短い符号語を割り当てる「可変長符号」（シャノン・ファノ・ハフマン符号など）と、すべてのシンボルに同じ長さを割り当てる「固定長符号」（ASCIIなど）の2種類がある。",
+    "relatedTerms": ["ch4-fugogo", "ch4-heikin-fugocho"],
+    "confusedWith": [],
+    "tags": ["符号化", "基礎"]
+  },
+  {
+    "id": "ch4-block-fugo",
+    "chapter": 4,
+    "term": "ブロック符号（Block code）",
+    "shortDef": "情報源シンボルの系列を一定長のブロックに区切り、それぞれのブロックごとに符号語を割り当てたもの",
+    "intuition": "3文字ずつセットにして、そのセットごとに符号を決めるイメージ。区切り方が「常に同じ長さ」なのがポイント。",
+    "relatedTerms": ["ch4-chikuji-fugo"],
+    "confusedWith": [{"id": "ch4-chikuji-fugo", "diff": "ブロック符号は固定長のブロックごとに独立して符号語を割り当てる。逐次符号は直近m個のシンボルに対して符号語を割り当てるため、シンボルが1つ進むごとに新しい符号語が生成される（窓がスライドするイメージ）。"}],
+    "tags": ["符号化", "符号の種類"]
+  },
+  {
+    "id": "ch4-chikuji-fugo",
+    "chapter": 4,
+    "term": "逐次符号（Sequential code）",
+    "shortDef": "最近生成したm個のシンボルに対して符号語を割り当てたもの",
+    "intuition": "常に「直近のm個」を見て符号語を作るので、1シンボル進むたびに窓（見る範囲）がずれていく。ブロック符号のようにキリのいい所で区切らない。",
+    "relatedTerms": ["ch4-block-fugo"],
+    "confusedWith": [{"id": "ch4-block-fugo", "diff": "逐次符号は窓が1シンボルずつスライドするのに対し、ブロック符号は固定長で区切ってから符号化する。"}],
+    "tags": ["符号化", "符号の種類"]
+  },
+  {
+    "id": "ch4-tokui-fugo",
+    "chapter": 4,
+    "term": "特異な符号（Singular code）",
+    "shortDef": "同じ符号が存在する符号。符号語から一意に複合不可能",
+    "intuition": "s1とs4のどちらも「10」という同じ符号語になっていると、「10」を受け取ってもどちらだったか区別できない。これが特異＝一意に複合できない状態。",
+    "relatedTerms": ["ch4-hitokui-fugo"],
+    "confusedWith": [{"id": "ch4-hitokui-fugo", "diff": "特異な符号は同じ符号語が重複して存在し、単独のシンボルすら一意に複合できない。非特異はシンボル単体なら区別できるが、系列として並べたときに区切り位置が曖昧になることがある（一意複合可能性は別の話）。"}],
+    "tags": ["符号化", "複合可能性"]
+  },
+  {
+    "id": "ch4-hitokui-fugo",
+    "chapter": 4,
+    "term": "非特異な符号（Nonsingular code）",
+    "shortDef": "同じ符号が存在しない符号。符号語から一意に複合可能。瞬時に複合可能であるとは限らない。",
+    "intuition": "重複がないので1つのシンボルだけを見れば必ず元に戻せる。ただし「00」を受け取ったとき、s1が2回続いたのかs3（=00）が1回来たのか分からない、というように系列全体では紛らわしいことがある。",
+    "relatedTerms": ["ch4-tokui-fugo", "ch4-ichii-fukugo"],
+    "confusedWith": [{"id": "ch4-ichii-fukugo", "diff": "非特異はシンボル単体の話。一意複合可能性は、符号語を連結した『系列』が与えられたときに元のシンボル列に一意に戻せるかどうかという、より強い条件。"}],
+    "tags": ["符号化", "複合可能性"]
+  },
+  {
+    "id": "ch4-n-kakudai",
+    "chapter": 4,
+    "term": "符号のn次の拡大（n-th extension）",
+    "shortDef": "n個の情報源シンボルの組み合わせを1つの符号語（元の符号語をn個つなげたもの）とみなしたもの",
+    "intuition": "「2文字セットで見たら重複がないか」を確認するための考え方。1文字ずつでは非特異でも、2文字つなげた組み合わせ同士で同じビット列ができてしまうことがある。",
+    "relatedTerms": ["ch4-ichii-fukugo"],
+    "confusedWith": [],
+    "tags": ["符号化", "複合可能性"]
+  },
+  {
+    "id": "ch4-ichii-fukugo",
+    "chapter": 4,
+    "term": "一意に複合可能（Uniquely decodable code）",
+    "shortDef": "符号のn次拡大があらゆる有限のnに対して非特異の場合の符号。符号語にかぶりがない符号",
+    "intuition": "系列をどれだけ長くつなげても、絶対に別のシンボル列と同じビット列にならないことが保証されている符号。ただし『どこで区切ればいいか』は瞬時には分からない場合がある（それが瞬時複合可能性との違い）。",
+    "relatedTerms": ["ch4-n-kakudai", "ch4-shunji-fukugo", "ch4-hitokui-fugo"],
+    "confusedWith": [{"id": "ch4-shunji-fukugo", "diff": "一意複合可能は『系列全体を最後まで見れば』一意に区切れるという条件。瞬時複合可能は『受信している最中、その場で』区切れるというより強い条件。すべての瞬時複合可能符号は一意複合可能だが、逆は成り立たない。"}],
+    "tags": ["符号化", "複合可能性"]
+  },
+  {
+    "id": "ch4-shunji-fukugo",
+    "chapter": 4,
+    "term": "瞬時に複合可能（Instantaneous code）",
+    "shortDef": "その符号に属するどの符号語も他の符号語の部分系列（プレフィックス）になっていない符号",
+    "intuition": "「0」を受け取った瞬間に、それが1シンボル分の符号語なのか、まだ続きがある別の符号語の途中なのか迷ってしまうと困る。だから『他の符号語の頭になってはいけない』という条件を満たす符号。グラフ（木）で見ると、すべての符号語が木の葉からなる符号であり、符号語の下に符号語が割り当てられていない符号でもある。判定するには「クラフトの不等式が成立」かつ「他の符号語のプレフィックスになっていない」の両方を確認する必要がある。",
+    "relatedTerms": ["ch4-ichii-fukugo", "ch4-prefix", "ch4-kraft", "ch4-ki"],
+    "confusedWith": [{"id": "ch4-ichii-fukugo", "diff": "瞬時複合可能はリアルタイムに区切れる、より強い条件。一意複合可能は系列全体を見れば区切れるという条件で、瞬時複合可能を含む上位概念。"}],
+    "tags": ["符号化", "複合可能性", "頻出"]
+  },
+  {
+    "id": "ch4-prefix",
+    "chapter": 4,
+    "term": "プレフィックス（prefix）",
+    "shortDef": "ある符号語の先頭から1,2,...,l個分を取り出した部分系列",
+    "intuition": "符号語「110」なら、プレフィックスは「1」「11」「110」の3つ。瞬時に複合可能であるための条件は『どの符号語も、他の符号語のプレフィックスになっていないこと』。",
+    "relatedTerms": ["ch4-shunji-fukugo"],
+    "confusedWith": [],
+    "tags": ["符号化", "基礎"]
+  },
+  {
+    "id": "ch4-ki",
+    "chapter": 4,
+    "term": "グラフ（木）",
+    "shortDef": "4つの要素から構成される→「根」「枝」「節点」「葉」",
+    "intuition": "符号語を図で表すための構造。(1) r元符号なら節点の分岐数はr、(2) 分岐した各枝に異なるシンボルを割り当てる、(3) 根から順に符号を並べた系列が「節点に対応する系列」になる、という3つの方針で作る。全r分木（完全）は、すべての接点でr本に分岐している木のこと。",
+    "relatedTerms": ["ch4-kanzen-ki", "ch4-shunji-fukugo"],
+    "confusedWith": [],
+    "tags": ["符号化", "木構造"]
+  },
+  {
+    "id": "ch4-kanzen-ki",
+    "chapter": 4,
+    "term": "完全な木（全r分木）",
+    "shortDef": "すべての接点でr本に分岐している木",
+    "intuition": "枝分かれの余地を無駄なく使い切っている木のこと。分岐の途中で止まっている（葉にならず、かつr本に分岐もしていない）節点があると『不完全』。完全な木はクラフトの不等式が等号で成立する状態に対応する。",
+    "relatedTerms": ["ch4-kraft", "ch4-ki"],
+    "confusedWith": [],
+    "tags": ["符号化", "木構造"]
+  },
+  {
+    "id": "ch4-kraft",
+    "chapter": 4,
+    "term": "クラフトの不等式（Kraft inequality）",
+    "shortDef": "長さがl1,l2,...ljとなるJ個の符号語を持つr元符号で瞬時に複合可能となるための必要条件",
+    "intuition": "符号語を木の葉と考えると、浅い場所（短い符号語）ほど木の『資源』を多く消費する。全部の消費量が1を超えなければ、木の中にうまく配置できる＝瞬時複合可能な符号が作れる、という条件。ただし長さの条件だけを見ており、実際にシンボルをどう割り当てるかには触れていないため、ある特定の符号が瞬時複合可能かどうかを判定するには、クラフトの不等式の成立に加えて『他の符号語のプレフィックスになっていないか』も確認する必要がある（不等式が成立しても瞬時複合可能とは限らない）。",
+    "relatedTerms": ["ch4-shunji-fukugo", "ch4-kanzen-ki", "ch4-heikin-fugocho"],
+    "confusedWith": [],
+    "tags": ["符号化", "公式", "頻出"]
+  },
+  {
+    "id": "ch4-heikin-fugocho",
+    "chapter": 4,
+    "term": "平均符号長（average code length）",
+    "shortDef": "sjの生起確率をP(sj)、符号の長さをljとするとき、L = ΣP(sj)lj",
+    "intuition": "よく出るシンボルには短い符号を、あまり出ないシンボルには長い符号を割り当てれば、平均的な通信量が減らせる。これはその『平均的な1シンボルあたりのビット数』。小さいほど効率がよい符号。r元単位で表されている場合の無記憶情報源のエントロピーHr(S)が平均符号長Lの下限になる（Hr(S) ≤ L）。",
+    "relatedTerms": ["ch4-fugogo", "ch4-kouritsu", "ch4-compact"],
+    "confusedWith": [],
+    "tags": ["符号化", "公式", "頻出"]
+  },
+  {
+    "id": "ch4-kouritsu",
+    "chapter": 4,
+    "term": "符号の効率",
+    "shortDef": "符号長に対する、エントロピーの比率 η = Hr(S)/L ≤ 1",
+    "intuition": "理論的な最短の平均符号長（エントロピー）に、実際の平均符号長がどれだけ近いかを表す割合。1に近いほど無駄がない符号。",
+    "relatedTerms": ["ch4-heikin-fugocho", "ch4-jouchoudo"],
+    "confusedWith": [{"id": "ch4-jouchoudo", "diff": "効率η と 冗長度(1-η) は表裏の関係。効率が高いほど冗長度は低い。"}],
+    "tags": ["符号化", "公式"]
+  },
+  {
+    "id": "ch4-jouchoudo",
+    "chapter": 4,
+    "term": "冗長度（redundancy）",
+    "shortDef": "信号や文字列に含まれる余分な情報の割合：1－η",
+    "intuition": "符号の中に含まれる『無駄な部分』がどれくらいあるかを表す指標。効率が高い（=1に近い）符号ほど冗長度は低い。",
+    "relatedTerms": ["ch4-kouritsu"],
+    "confusedWith": [],
+    "tags": ["符号化", "公式"]
+  },
+  {
+    "id": "ch4-compact",
+    "chapter": 4,
+    "term": "コンパクト符号（compact code）",
+    "shortDef": "一意に複合可能な符号の中で、効率ηが最大で、平均符号長Lが最小となる符号。コンパクト符号の平均符号長は必ずしもエントロピーと等しくはない",
+    "intuition": "『これ以上短くできない』という意味でのベストな符号。瞬時に複合可能でコンパクトな符号の符号語長はlj = log_r(1/P(sj))で決まり、P(sj)が2のべき乗のときだけ平均符号長L＝エントロピーH(S)となる。生起確率が大きいシンボルほど符号語長は短くなり、r元コンパクト符号では符号の木を考えるときに最後の枝だけが異なる最も長い符号が少なくとも2つ存在する。",
+    "relatedTerms": ["ch4-heikin-fugocho", "ch4-huffman-fugo"],
+    "confusedWith": [],
+    "tags": ["符号化", "頻出"]
+  },
+  {
+    "id": "ch4-jouhougen-fugoka-teiri",
+    "chapter": 4,
+    "term": "情報源符号化定理（source coding theorem）",
+    "shortDef": "情報源Sは、任意の一意に複合可能なr元符号で符号化する場合、その平均符号長Lは H(S)/log2r ≤ L を満たす",
+    "intuition": "『符号は工夫すればいくらでも短くできる』わけではなく、エントロピーという下限が必ず存在する。しかしコンパクト符号を用いて拡大次元数を大きくすると、情報源シンボル当たりの平均符号長をH(S)に近づけることができる（n→∞でL(n)/n → H(S)）。",
+    "relatedTerms": ["ch4-heikin-fugocho", "ch4-kraft"],
+    "confusedWith": [],
+    "tags": ["符号化", "定理", "頻出"]
+  },
+  {
+    "id": "ch4-morse",
+    "chapter": 4,
+    "term": "モールス符号（Morse code）",
+    "shortDef": "1832年にモールスが考案した、電信用の可変長文字符号",
+    "intuition": "「短点（トン）」「長点（ツー）」「空白」の組み合わせで文字を表す最古の可変長符号の代表例。ツーはトンの3倍の長さ、文字間はトンの3倍、単語間はトンの7倍の空白を挿入するという時間的なルールを持つ。",
+    "relatedTerms": ["ch4-shannon-fugo", "ch4-fano-fugo", "ch4-huffman-fugo"],
+    "confusedWith": [],
+    "tags": ["符号化", "具体例"]
+  },
+  {
+    "id": "ch4-shannon-fugo",
+    "chapter": 4,
+    "term": "シャノン符号（Shannon code）",
+    "shortDef": "瞬時に複合可能、P(sj)が全て2のべき乗でコンパクト符号",
+    "intuition": "各シンボルの符号語長を「-log P(sj)」を切り上げた値に決め、確率の累積値（区間の左端）を2進数で表した数値をその桁数だけ使う、という機械的な手順で符号を作る方法。ファノ符号やハフマン符号と比べて必ずしも最短にはならない。",
+    "relatedTerms": ["ch4-fano-fugo", "ch4-huffman-fugo", "ch4-compact"],
+    "confusedWith": [{"id": "ch4-fano-fugo", "diff": "シャノン符号は確率の累積値を2進数展開して符号語を機械的に決める。ファノ符号は木を根から葉に向かって、確率の合計が均等になるように2分割を繰り返して構成する。"}, {"id": "ch4-huffman-fugo", "diff": "シャノン符号・ファノ符号は根から葉へ（トップダウン）符号を組み立てるのに対し、ハフマン符号は葉から根へ（ボトムアップ、確率の小さい2つを併合）符号を組み立てる。ハフマン符号は常にコンパクト符号になる点が最大の違い。"}],
+    "tags": ["符号化", "具体例", "頻出"]
+  },
+  {
+    "id": "ch4-fano-fugo",
+    "chapter": 4,
+    "term": "ファノ符号（Fano code）",
+    "shortDef": "瞬時に複合可能、P(sj)が全て2のべき乗でコンパクト符号",
+    "intuition": "根から葉に向かって『確率の合計ができるだけ均等になるように』グループを2つに割り、それぞれに0と1を割り当てる…を1グループ1個になるまで繰り返す。木を上から作っていくイメージ。",
+    "relatedTerms": ["ch4-shannon-fugo", "ch4-huffman-fugo"],
+    "confusedWith": [{"id": "ch4-huffman-fugo", "diff": "ファノ符号は根から葉へ（トップダウン）に分割していく。ハフマン符号は葉から根へ（ボトムアップ）に併合していく。ハフマン符号の方が常に平均符号長が短い（コンパクト符号になる）。"}],
+    "tags": ["符号化", "具体例", "頻出"]
+  },
+  {
+    "id": "ch4-huffman-fugo",
+    "chapter": 4,
+    "term": "ハフマン符号（Huffman code）",
+    "shortDef": "常にコンパクト符号、葉→根",
+    "intuition": "ファノ符号の逆方向：一番確率が小さい2つを『くっつけて』1つの節点にすることを、シンボルが2個になるまで繰り返す。最後にできた木を逆にたどりながら0と1を割り振っていく。必ずコンパクト符号（最短の平均符号長）になる、実務上もっとも重要な符号化法。",
+    "relatedTerms": ["ch4-shannon-fugo", "ch4-fano-fugo", "ch4-compact"],
+    "confusedWith": [],
+    "tags": ["符号化", "具体例", "頻出"]
+  },
+
+  {
+    "id": "ch5-zatsuon",
+    "chapter": 5,
+    "term": "雑音",
+    "shortDef": "信号レベルを減衰させる。受信側が受け取る情報(B)が送信した情報(A)と異なる可能性がある",
+    "intuition": "通信路の途中に入り込むノイズのこと。雑音があるせいで、送った記号Aと受け取った記号Bが食い違うことがある。この食い違い方を数式化したのが通信路行列。",
+    "relatedTerms": ["ch5-tsushinro", "ch5-tsushinro-gyoretsu"],
+    "confusedWith": [],
+    "tags": ["通信路", "基礎"]
+  },
+  {
+    "id": "ch5-tsushinro",
+    "chapter": 5,
+    "term": "通信路（channel）",
+    "shortDef": "送信側のシンボルを受信側に伝える経路。雑音により送信した情報(A)と受信する情報(B)が異なる可能性がある",
+    "intuition": "手紙を送る郵便経路のようなもの。途中で雑音（ノイズ）が入ると、送ったはずの記号と違う記号が届いてしまうことがある。この『届き方の癖』を数式で表したのが通信路行列。通信路線図は有向グラフによって通信路を示したもので、左に送信側、右に受信側を書く。",
+    "relatedTerms": ["ch5-tsushinro-gyoretsu", "ch5-zatsuon"],
+    "confusedWith": [],
+    "tags": ["通信路", "基礎"]
+  },
+  {
+    "id": "ch5-tsushinro-gyoretsu",
+    "chapter": 5,
+    "term": "通信路行列P（channel matrix）",
+    "shortDef": "送信するシンボルajがbkとして受信される確率P(bk|aj)を(i,j)として行列にまとめたもの。各行の合計は1。ほぼ遷移確率行列",
+    "intuition": "『aを送ったとき、bとして受信される確率はこれくらい』という対応表。行（送った記号）ごとに確率をすべて足すと必ず1になる＝送ったら必ずどれかのシンボルとして受信される、という意味。受信されたシンボルがbkである確率はP(bk)=ΣP(aj)P(bk|aj)で求まる。",
+    "relatedTerms": ["ch5-tsushinro", "ch5-2gen-taisho"],
+    "confusedWith": [],
+    "tags": ["通信路", "公式", "頻出"]
+  },
+  {
+    "id": "ch5-kioku-ari",
+    "chapter": 5,
+    "term": "記憶のある通信路（channel with memory）",
+    "shortDef": "通信路行列が時間や過去に伝送したシンボルの系列に依存して変化する通信路",
+    "intuition": "『さっき雑音が入ったから、次も入りやすい』というように、過去の履歴が現在の誤りやすさに影響する通信路。",
+    "relatedTerms": ["ch5-mukioku"],
+    "confusedWith": [{"id": "ch5-mukioku", "diff": "記憶のある通信路は過去の履歴に依存して通信路行列が変化する。無記憶通信路は常に同じ通信路行列を使う、履歴に依存しないシンプルなモデル。"}],
+    "tags": ["通信路", "基礎"]
+  },
+  {
+    "id": "ch5-mukioku",
+    "chapter": 5,
+    "term": "無記憶通信路（memoryless channel）",
+    "shortDef": "通信路行列が変化しない通信路",
+    "intuition": "毎回まったく同じ『誤りやすさ』のルールが適用される通信路。授業で扱う通信路はこちらが前提。",
+    "relatedTerms": ["ch5-kioku-ari"],
+    "confusedWith": [],
+    "tags": ["通信路", "基礎"]
+  },
+  {
+    "id": "ch5-2gen-taisho",
+    "chapter": 5,
+    "term": "2元対称通信路（Binary Symmetric Channel, BSC）",
+    "shortDef": "0が1、1が0と誤って送信する確率p（ビット誤り率）が等しい通信路",
+    "intuition": "「0→1に化ける確率」と「1→0に化ける確率」が同じpという、一番シンプルで対称的な通信路モデル。試験でも頻出の基本形。",
+    "relatedTerms": ["ch5-2gen-hitaisho", "ch5-tsushinro-gyoretsu"],
+    "confusedWith": [{"id": "ch5-2gen-hitaisho", "diff": "2元対称通信路は0→1と1→0の誤り確率が同じp。2元非対称通信路はこれらが異なる値p, qになっている一般形。"}],
+    "tags": ["通信路", "具体例", "頻出"]
+  },
+  {
+    "id": "ch5-2gen-hitaisho",
+    "chapter": 5,
+    "term": "2元非対称通信路（一般の2元通信路）",
+    "shortDef": "0を送ったとき1が受信される確率(p)と、1を送った時0が受信される確率(q)が異なる通信路",
+    "intuition": "上りと下りで『化けやすさ』が違う通信路。2元対称通信路はこの特殊ケース（p=qのとき）。",
+    "relatedTerms": ["ch5-2gen-taisho"],
+    "confusedWith": [],
+    "tags": ["通信路", "具体例"]
+  },
+  {
+    "id": "ch5-bayes",
+    "chapter": 5,
+    "term": "ベイズの定理（Bayes' theorem）",
+    "shortDef": "P(aj)とP(bk|aj)が与えられることで、P(aj|bk)が計算可能",
+    "intuition": "『bkを受信した後で、実際に送られたのはajだった確率はどれくらいか』を逆算する道具。受信側が『何が送られてきたか』を推定するときの土台になる。",
+    "relatedTerms": ["ch5-zenmuki-kakuritsu", "ch5-jizen-jigo-kakuritsu"],
+    "confusedWith": [],
+    "tags": ["通信路", "公式", "頻出"]
+  },
+  {
+    "id": "ch5-zenmuki-kakuritsu",
+    "chapter": 5,
+    "term": "前向き確率・後向き確率",
+    "shortDef": "P(bk|aj)を前向き確率、P(aj|bk)を後向き確率と呼ぶ",
+    "intuition": "「送信→受信」の向きで見た確率が前向き確率（通信路行列そのもの）。「受信→送信を推定」の向きで見た確率が後向き確率（ベイズの定理で計算する）。",
+    "relatedTerms": ["ch5-bayes"],
+    "confusedWith": [],
+    "tags": ["通信路", "基礎"]
+  },
+  {
+    "id": "ch5-n-kakudai-tsushinro",
+    "chapter": 5,
+    "term": "n次拡大通信路行列",
+    "shortDef": "（1次の）通信路行列Pのクロネッカーのn乗で求める",
+    "intuition": "1個ずつではなく『n個セット』で通信路を捉え直す考え方。情報源のn次拡大と同じ発想で、通信路の性質をブロック単位で分析するのに使う。",
+    "relatedTerms": ["ch5-kronecker", "ch5-tsushinro-gyoretsu"],
+    "confusedWith": [],
+    "tags": ["通信路", "応用"]
+  },
+  {
+    "id": "ch5-kronecker",
+    "chapter": 5,
+    "term": "クロネッカー積",
+    "shortDef": "行列Uの各成分にVを掛けてブロック状に並べた行列U⊗V。n次拡大通信路の通信路行列はP⊗...⊗P（n個）で与えられる",
+    "intuition": "通信路行列を「かけ合わせて拡大する」ための行列演算。1シンボルの通信路行列Pを何度もクロネッカー積することで、n個セットの通信路行列が機械的に作れる。",
+    "relatedTerms": ["ch5-n-kakudai-tsushinro"],
+    "confusedWith": [],
+    "tags": ["通信路", "応用"]
+  },
+  {
+    "id": "ch5-jizen-jigo-kakuritsu",
+    "chapter": 5,
+    "term": "事前確率・事後確率",
+    "shortDef": "事前確率：送信前にわかる確率。入力シンボルajの生起確率P(aj)。事後確率：受信語にわかる確率。受け取ったbkがajの確率P(aj|bk)",
+    "intuition": "『何も見る前にどれくらいありそうか』が事前確率、『bkを受け取った後で振り返るとどれくらいありそうだったか』が事後確率。ベイズの定理はこの事前→事後の更新を計算する道具。",
+    "relatedTerms": ["ch5-bayes", "ch5-jizen-entropy", "ch5-jigo-entropy"],
+    "confusedWith": [],
+    "tags": ["通信路", "基礎"]
+  },
+  {
+    "id": "ch5-jizen-entropy",
+    "chapter": 5,
+    "term": "事前エントロピー H(A)",
+    "shortDef": "事前確率のエントロピー",
+    "intuition": "『まだ何も受信していない段階』での送信シンボルの予測しにくさ。H(A)=ΣP(aj)log(1/P(aj))。第2章で学んだ通常のエントロピーと同じ式だが、通信路の文脈で『事前』と呼ぶ。",
+    "relatedTerms": ["ch5-jigo-entropy", "ch5-aimaido"],
+    "confusedWith": [{"id": "ch5-jigo-entropy", "diff": "事前エントロピーは受信前のAの不確実さ。事後エントロピーは、あるbkを受信した『後』でのAの不確実さ。両者を出力全体で平均したものが曖昧度H(A|B)。"}],
+    "tags": ["通信路", "公式"]
+  },
+  {
+    "id": "ch5-jigo-entropy",
+    "chapter": 5,
+    "term": "事後エントロピー H(A|bk)",
+    "shortDef": "事後確率のエントロピー（bkを受信後のAのエントロピー）",
+    "intuition": "『bkを受け取った後、実際に何が送られたか』のまだ残っている曖昧さ。H(A|bk)=ΣP(aj|bk)log(1/P(aj|bk))。すべてのbkについてこれを平均したものが平均事後エントロピーH(A|B)＝曖昧度。",
+    "relatedTerms": ["ch5-jizen-entropy", "ch5-aimaido"],
+    "confusedWith": [],
+    "tags": ["通信路", "公式"]
+  },
+  {
+    "id": "ch5-aimaido",
+    "chapter": 5,
+    "term": "曖昧度 H(A|B)",
+    "shortDef": "平均事後エントロピー。受信側から見た入力シンボルの不確実さの度合い。誤りがなければH(A|B)=0",
+    "intuition": "『Bを受信した後でも、Aが何だったか、まだどれくらい分からないか』を表す量。H(A|B)=H(A,B)-H(B)。条件付エントロピーの範囲は 0≤H(A|B)≤H(A)。",
+    "relatedTerms": ["ch5-sanpudo", "ch5-sogo-jouhouryo"],
+    "confusedWith": [{"id": "ch5-sanpudo", "diff": "曖昧度H(A|B)は『受信側から見た送信側の不確実さ』（Bを見てもAが分からない度合い）。散布度H(B|A)は『送信側から見た受信側の広がり』（Aを送ったときBがどれだけばらつくか）。数式上はA, Bの立場が入れ替わっているだけだが、意味の向きが逆であることに注意。"}],
+    "tags": ["通信路", "公式", "頻出"]
+  },
+  {
+    "id": "ch5-sanpudo",
+    "chapter": 5,
+    "term": "散布度 H(B|A)",
+    "shortDef": "通信路上の誤りによって、入力シンボルが様々な出力シンボルとなって受信側に現れるときの、広がりの度合いを示す指標",
+    "intuition": "『Aを送ったとき、Bがどれだけ散らばって受信されるか』を表す量。H(B|A)=H(A,B)-H(A)。誤りが多い通信路ほど散布度は大きくなる。",
+    "relatedTerms": ["ch5-aimaido"],
+    "confusedWith": [{"id": "ch5-aimaido", "diff": "曖昧度H(A|B)との違いは条件付けの向き。散布度は送信側Aを固定したときの出力Bのばらつき、曖昧度は受信側Bを固定したときの送信側Aの不確実さ。"}],
+    "tags": ["通信路", "公式", "頻出"]
+  },
+  {
+    "id": "ch5-sogo-jouhouryo",
+    "chapter": 5,
+    "term": "相互情報量 I(A;B)",
+    "shortDef": "不確実さ（情報エントロピー）の減少量。どのくらい不確実さが減少したかを表す尺度。I(A;B)=H(A)-H(A|B)=H(B)-H(B|A)",
+    "intuition": "『通信路を通したことで、実際にどれだけの情報が伝わったか』を測る指標。範囲は0≤I(A;B)≤H(A)。I(A;B)=0はH(A|B)=H(A)で独立のとき（通信路がまったく情報を伝えない）、I(A;B)=H(A)はH(A|B)=0でBを受け取った後のAの不確実さがなくなるとき（誤りなく情報が伝わる）。",
+    "relatedTerms": ["ch5-aimaido", "ch5-sanpudo", "ch5-tsushinro-youryo"],
+    "confusedWith": [],
+    "tags": ["通信路", "公式", "頻出"]
+  },
+  {
+    "id": "ch5-zatsuon-nashi",
+    "chapter": 5,
+    "term": "雑音のない通信路（Noiseless channel）",
+    "shortDef": "あるシンボルが取り出されたときに、入力シンボルを一意に決定することができる通信路",
+    "intuition": "受信した記号を見れば、送られた記号が『これしかありえない』と一発で分かる通信路。通信路行列の各列に0以外の成分がただ1つ存在する。1つの入力から複数の出力へ分岐すること自体は許される（出力側から見て一意ならOK）。",
+    "relatedTerms": ["ch5-kakuteiteki"],
+    "confusedWith": [{"id": "ch5-kakuteiteki", "diff": "雑音のない通信路は『出力から入力が一意に決まる』（列に非ゼロ成分が1つ）。確定的通信路は逆に『入力が決まれば出力が一意に決まる』（行に1となる成分が1つ）。矢印の向きが逆であることに注意。"}],
+    "tags": ["通信路", "特殊な通信路", "頻出"]
+  },
+  {
+    "id": "ch5-kakuteiteki",
+    "chapter": 5,
+    "term": "確定的通信路（Deterministic channel）",
+    "shortDef": "入力シンボルが決まると、出力シンボルを一意に決定することができる通信路",
+    "intuition": "何を送ったかが決まれば、受信される記号も100%決まってしまう（各行に1が1つ存在。ただし複数の入力が同じ出力に集まってしまうことはありうる）通信路。I(A,B)=I(A)となる。",
+    "relatedTerms": ["ch5-zatsuon-nashi"],
+    "confusedWith": [],
+    "tags": ["通信路", "特殊な通信路"]
+  },
+  {
+    "id": "ch5-ichiyo-tsushinro",
+    "chapter": 5,
+    "term": "一様通信路（入力・出力・二重に一様な通信路）",
+    "shortDef": "入力に関して一様な通信路：通信路行列の任意の行が第1行の成分を並び替えたものとなっている通信路。出力に関して一様な通信路：任意の列が第1列の成分を並び替えたもの。二重に一様な通信路：入力および出力のいずれに関しても一様（任意の[行,列]が[第1行,第1列]を並び替えたもの）",
+    "intuition": "入力シンボルの生起確率が等しいとき、出力シンボルの生起確率も等しくなる（行列の各列の成分の和は等しいため）。r元対称通信路は二重に一様な通信路の代表例で、2元対称通信路の拡張にあたる。",
+    "relatedTerms": ["ch5-2gen-taisho"],
+    "confusedWith": [],
+    "tags": ["通信路", "特殊な通信路"]
+  },
+  {
+    "id": "ch5-2gen-shoshitsu",
+    "chapter": 5,
+    "term": "2元消失通信路（Binary erasure channel）",
+    "shortDef": "判定不能というシンボルを加えた通信路",
+    "intuition": "誤って別の記号に化けるのではなく、『読み取れなかった（消えた）』という第3の結果がありうる通信路。実際の通信で信号が弱すぎて判定できない状況を表現できる。",
+    "relatedTerms": ["ch5-ichiyo-tsushinro"],
+    "confusedWith": [],
+    "tags": ["通信路", "具体例"]
+  },
+  {
+    "id": "ch5-tsushinro-youryo",
+    "chapter": 5,
+    "term": "通信路容量 C（Channel capacity）",
+    "shortDef": "通信路が運ぶ情報量である、相互情報量I(A;B)の最大値",
+    "intuition": "その通信路が『どんなに工夫して入力の確率分布を選んでも、これ以上は情報を運べない』という上限値。通信路そのものの性能を表す指標。一般的には C = log Σ2^xk（xkは散布度連立方程式の解）で求められる。",
+    "relatedTerms": ["ch5-sogo-jouhouryo"],
+    "confusedWith": [],
+    "tags": ["通信路", "公式", "頻出"]
+  },
+
+  {
+    "id": "ch6-tsushinro-fugoka",
+    "chapter": 6,
+    "term": "通信路符号化（Channel coding）",
+    "shortDef": "通信路の信頼性向上の為、情報に冗長部分を加えること",
+    "intuition": "情報源符号化が『無駄を削る』符号化だったのに対し、通信路符号化はあえて『冗長（余分な）情報』を付け加えて、誤りを検出・訂正できるようにする符号化。伝送速度を落とさずに誤り率を下げる方法も存在する。",
+    "relatedTerms": ["ch6-tasuuketsu-fugo", "ch6-jouhou-densou-sokudo"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "基礎", "頻出"]
+  },
+  {
+    "id": "ch6-hantei-kisoku",
+    "chapter": 6,
+    "term": "判定規則（decision rule）",
+    "shortDef": "出力bkから、一意に入力ajを決定する関数 d(bk)=aj",
+    "intuition": "『これを受け取ったら、送られたのはこれだと判断する』という受信側の決めごと。この規則の作り方次第で平均誤り率が変わる。平均誤り率を小さくするにはP(aj)P(bk|aj)を大きくすればよい。",
+    "relatedTerms": ["ch6-map", "ch6-ml", "ch6-heikin-ayamari-ritsu"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "基礎"]
+  },
+  {
+    "id": "ch6-heikin-ayamari-ritsu",
+    "chapter": 6,
+    "term": "平均誤り率 Pe（Average error rate）",
+    "shortDef": "Pe = 1 - Σ P(aj)P(bk|aj)（d(bk)=ajという判定基準を用いるとき）",
+    "intuition": "『この判定規則を使ったら、平均してどれくらいの割合で間違えるか』を表す量。bkが出力されたという条件下での誤り率は p=1-P(d(bk)|bk)=1-P(aj|bk)。これを最小化するのが最大事後確率判定規則。",
+    "relatedTerms": ["ch6-hantei-kisoku", "ch6-map"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "公式", "頻出"]
+  },
+  {
+    "id": "ch6-map",
+    "chapter": 6,
+    "term": "最大事後確率判定規則（MAP: Maximum posteriori probability decision rule）",
+    "shortDef": "各出力シンボルbkについて、事後確率P(aj|bk)が最大となるシンボルが入力されたと判定する規則にする。P(aj)P(bk|aj)が最大となるような判定規則にする",
+    "intuition": "『bkを受け取った後の確率（事後確率）』が一番高いシンボルを答えにする、最も理にかなった判定方法。ただし入力シンボルの生起確率P(aj)の影響を強く受けるため、生起確率に偏りがあると結果が引っ張られることがある。",
+    "relatedTerms": ["ch6-ml", "ch6-heikin-ayamari-ritsu"],
+    "confusedWith": [{"id": "ch6-ml", "diff": "MAP（最大事後確率判定規則）は事後確率P(aj|bk)＝P(aj)P(bk|aj)を最大化するシンボルを選ぶ（入力の生起確率P(aj)を考慮する）。ML（最大尤度判定規則）はP(bk|aj)だけを見て最大のものを選ぶ（生起確率を無視し、通信路行列だけから機械的に決められる）。各入力シンボルの生起確率が等しいとき、MAPとMLは一致する。"}],
+    "tags": ["通信路符号化", "頻出"]
+  },
+  {
+    "id": "ch6-ml",
+    "chapter": 6,
+    "term": "最大尤度判定規則（ML: Maximum likelihood decision rule）",
+    "shortDef": "各入力シンボルの生起確率が等しい時に使用する。P(bk|aj)が最大となる成分を判定規則に割り当てる→通信路行列Pの各列で最大となる成分",
+    "intuition": "通信路行列を列ごとに見て、一番大きい値のところを選ぶだけでよいので、生起確率が分からなくても、または等確率のときに機械的にすぐ判定規則を作れる方法。",
+    "relatedTerms": ["ch6-map"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "頻出"]
+  },
+  {
+    "id": "ch6-tasuuketsu-fugo",
+    "chapter": 6,
+    "term": "多数決符号（majority code）",
+    "shortDef": "符号長が奇数になるように同じシンボルを付加し、送信受信時に多数決でシンボルを決定。冗長することで平均誤り率が減少",
+    "intuition": "「1」を送りたいときに「111」と3回繰り返して送り、受信側は多数派（2つ以上一致する方）を採用する、というもっとも素朴な誤り訂正符号。分かりやすい反面、情報伝送速度が1/3に落ちるという代償がある。",
+    "relatedTerms": ["ch6-ayamari-teisei", "ch6-jouhou-densou-sokudo"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "具体例", "頻出"]
+  },
+  {
+    "id": "ch6-jouhou-densou-sokudo",
+    "chapter": 6,
+    "term": "情報伝送速度 R（Information transmission rate）",
+    "shortDef": "1個分のシンボルが伝達する情報量 R=log(M)/n [bit]",
+    "intuition": "『冗長な系列を付け加えると、その分1シンボルあたりの実質的な情報量は減ってしまう』ことを数値化したもの。情報伝達速度と信頼度はトレードオフの関係になりがちだが、工夫次第でRを保ったまま信頼性を上げることも可能（通信路符号化定理）。n次の拡大通信路が送信できる情報は最大J^n通りで、M個が等確率で生起するときのエントロピーはlogM。",
+    "relatedTerms": ["ch6-tsushinro-fugoka", "ch6-tsushinro-fugoka-teiri"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "公式", "頻出"]
+  },
+  {
+    "id": "ch6-hamming-kyori",
+    "chapter": 6,
+    "term": "ハミング距離（Hamming distance）",
+    "shortDef": "2つの系列の対応する位置のシンボルで異なるものの個数。2つの系列の違いを数値的に表す手段",
+    "intuition": "「どこが何箇所違うか」を数えるだけのシンプルな『距離』。例えば(1,0,1)と(1,1,1)なら違うのは真ん中の1箇所だけなのでハミング距離は1。2元系列ではdH(a,b)=Σ(ai XOR bi)として計算できる。誤りの個数を数えるのにそのまま使える。",
+    "relatedTerms": ["ch6-hamming-omomi", "ch6-saisho-kyori"],
+    "confusedWith": [{"id": "ch6-hamming-omomi", "diff": "ハミング距離は『2つの系列』の間の違いの個数。ハミング重みは『1つの系列』とすべて0の系列との距離、つまりその系列に含まれる1の個数のこと。"}],
+    "tags": ["通信路符号化", "公式", "頻出"]
+  },
+  {
+    "id": "ch6-hamming-omomi",
+    "chapter": 6,
+    "term": "ハミング重み（Hamming weight）",
+    "shortDef": "ある系列aと、すべてのシンボルが0である系列0との距離",
+    "intuition": "系列の中に「1」がいくつ含まれているかを数えるだけ。ωH(a)=dH(a,0)=Σai。ハミング距離の特別なケース（片方をすべて0にした場合）と考えると覚えやすい。",
+    "relatedTerms": ["ch6-hamming-kyori"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "公式"]
+  },
+  {
+    "id": "ch6-jushin-kukan",
+    "chapter": 6,
+    "term": "受信空間",
+    "shortDef": "受信語の集合Bn",
+    "intuition": "受信されうるすべてのパターンを含む大きな空間。この空間の中に各符号語を中心とした誤り訂正可能領域（小領域Ω）を考える。",
+    "relatedTerms": ["ch6-hamming-kyu", "ch6-ayamari-teisei"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "誤り訂正"]
+  },
+  {
+    "id": "ch6-saisho-kyori",
+    "chapter": 6,
+    "term": "符号Cの最小距離 dmin",
+    "shortDef": "Cの異なる符号語のハミング距離の最小値",
+    "intuition": "符号語同士がどれだけ『離れているか』の中で、一番近いペアの距離。この値が大きいほど、誤りが多少あっても別の符号語と間違えにくい（誤り訂正・検出能力が高い）。",
+    "relatedTerms": ["ch6-hamming-kyori", "ch6-hamming-kyu", "ch6-ayamari-teisei"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "誤り訂正", "頻出"]
+  },
+  {
+    "id": "ch6-ayamari-teisei-ryoiki",
+    "chapter": 6,
+    "term": "誤り訂正可能領域",
+    "shortDef": "受信系列bmを含む領域Ωmで、この領域内の符号を受信した際にbmと認識する。異なる小領域Ωi, Ωjは交わらない。t個の誤りを訂正できる",
+    "intuition": "各符号語の『縄張り』のこと。受信した系列がどの縄張りに入るかを見て、その中心の符号語だったと判断する。ハミング球（半径tの球）がこの領域を作る。",
+    "relatedTerms": ["ch6-hamming-kyu", "ch6-ayamari-teisei", "ch6-jushin-kukan"],
+    "confusedWith": [{"id": "ch6-ayamari-kenshutsu-ryoiki", "diff": "誤り訂正可能領域は各符号語を中心とする半径tの球で、他の小領域と重ならない。誤り検出可能領域は受信空間のうち、どの小領域Ωにも属さない外側の部分（半径t+t'まで）を指す。"}],
+    "tags": ["通信路符号化", "誤り訂正"]
+  },
+  {
+    "id": "ch6-hamming-kyu",
+    "chapter": 6,
+    "term": "ハミング球",
+    "shortDef": "誤り訂正可能な領域を示す半径tの球。dmin ≥ 2t+1",
+    "intuition": "符号語を中心に『半径t以内なら仲間とみなす』という球を描いたもの。dmin ≥ 2t+1 が成り立てば、どの球も他の球と重ならず、t個以下の誤りを確実に訂正できる。",
+    "relatedTerms": ["ch6-saisho-kyori", "ch6-ayamari-teisei"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "誤り訂正"]
+  },
+  {
+    "id": "ch6-ayamari-kenshutsu-ryoiki",
+    "chapter": 6,
+    "term": "誤り検出可能領域",
+    "shortDef": "受信空間Bnに属し、どの小領域Ωにも属さない領域。dmin ≥ 2t+t'+1 を満たす、半径t+t'の領域。t個の誤りを訂正し、t'個の誤りを検出できる",
+    "intuition": "『訂正はできないけれど、何かおかしいと気づける』範囲。誤り訂正可能領域（半径t）のさらに外側、半径t+t'までが誤り検出可能領域にあたる。",
+    "relatedTerms": ["ch6-ayamari-teisei-ryoiki", "ch6-ayamari-kenshutsu"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "誤り訂正"]
+  },
+  {
+    "id": "ch6-ayamari-teisei",
+    "chapter": 6,
+    "term": "誤り訂正符号（error-correcting code）",
+    "shortDef": "dmin ≥ 2t+t'+1。t個以下の誤り訂正が可能。t'個以下の誤り検出が可能（t=0のとき最大）",
+    "intuition": "受信した系列に多少の誤りがあっても、一番近い符号語（中心）を『これが正解だったはず』と自動的に復元できる能力のこと。ハミング球同士が重ならないことが数学的な根拠。",
+    "relatedTerms": ["ch6-ayamari-kenshutsu", "ch6-saisho-kyori", "ch6-tasuuketsu-fugo"],
+    "confusedWith": [{"id": "ch6-ayamari-kenshutsu", "diff": "誤り訂正は『誤りを自動的に正しい符号語に復元できる』能力（dmin≥2t+1が必要）。誤り検出は『誤りがあったこと自体は分かるが、どれが正しいかまでは分からない（訂正はできない）』能力（dmin≥t'+1で足りる）。同じ冗長性でも、訂正の方がより強い条件を要求する。"}],
+    "tags": ["通信路符号化", "誤り訂正", "頻出"]
+  },
+  {
+    "id": "ch6-ayamari-kenshutsu",
+    "chapter": 6,
+    "term": "誤り検出（error detection）",
+    "shortDef": "最小距離dminがdmin≥t'+1を満たせば、t'個以下の誤りを検出できる（誤りがあったことは分かるが訂正はできない）",
+    "intuition": "『何か変だぞ』と気づくことはできるが、『じゃあ正しくは何だったか』までは分からない、訂正より緩い（＝少ない冗長性で済む）能力。",
+    "relatedTerms": ["ch6-ayamari-teisei"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "誤り訂正"]
+  },
+  {
+    "id": "ch6-tsushinro-fugoka-teiri",
+    "chapter": 6,
+    "term": "通信路符号化定理（channel coding theorem）",
+    "shortDef": "通信路容量Cの雑音のある通信路を用いて、情報伝送速度Rでシンボルの伝送をするとき、n次拡大通信路を考え、入力系列の集合からM=2^nR個を選び出して符号とした場合、nが十分大きければ、平均誤り率Peをいくらでも小さくすることができる符号が存在する",
+    "intuition": "『伝送速度を通信路容量より少しでも低く抑えておけば、工夫次第で誤り率をほぼゼロに近づけられる』という、通信路符号化の理論的な到達点を示す定理。情報源符号化と同様に符号が存在していることのみを保証する定理で、具体的な作り方までは示さない。雑音のない通信路の場合はR=C-εとなり、情報源符号化定理そのものに帰着する。",
+    "relatedTerms": ["ch6-jouhou-densou-sokudo", "ch5-tsushinro-youryo"],
+    "confusedWith": [],
+    "tags": ["通信路符号化", "定理", "頻出"]
+  }
+]
