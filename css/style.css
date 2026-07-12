@@ -63,13 +63,6 @@ html, body {
   z-index: 10;
 }
 .app-header h1 { font-size: 17px; margin: 0; font-weight: 700; }
-.streak-badge {
-  background: rgba(255,255,255,0.18);
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-}
 
 .main-view {
   flex: 1 1 auto;
@@ -143,9 +136,6 @@ html, body {
 .btn.success { background: var(--color-success); }
 .btn.ghost { background: transparent; color: var(--color-primary); border: 1px solid var(--color-primary); }
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-
 h2.section-title {
   font-size: 15px;
   color: var(--color-text-muted);
@@ -166,19 +156,6 @@ h2.section-title:first-child { margin-top: 0; }
   opacity: 0.85;
 }
 
-.progress-bar-track {
-  height: 8px;
-  background: var(--color-border);
-  border-radius: 999px;
-  overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: var(--color-primary);
-  border-radius: 999px;
-  transition: width 0.3s;
-}
-
 .empty-state {
   text-align: center;
   padding: 48px 16px;
@@ -186,47 +163,7 @@ h2.section-title:first-child { margin-top: 0; }
 }
 .empty-state .big-emoji { font-size: 40px; margin-bottom: 12px; }
 
-/* ---------- Home screen ---------- */
-.home-hero {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: white;
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.home-hero .hero-num { font-size: 32px; font-weight: 800; }
-.home-hero .hero-label { font-size: 13px; opacity: 0.9; }
-
-.chapter-gauge-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.chapter-gauge-row .label { width: 64px; font-size: 13px; font-weight: 600; flex-shrink: 0; }
-.chapter-gauge-row .progress-bar-track { flex: 1; }
-.chapter-gauge-row .pct { width: 38px; text-align: right; font-size: 12px; color: var(--color-text-muted); }
-
-.quick-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; }
-.quick-action-btn {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 14px 8px;
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text);
-}
-.quick-action-btn .qa-icon { font-size: 22px; }
-.quick-action-btn:active { background: var(--color-bg); }
-
-/* ---------- Formula reference ---------- */
+/* ---------- Term list ---------- */
 .tabs {
   display: flex;
   gap: 6px;
@@ -258,34 +195,6 @@ h2.section-title:first-child { margin-top: 0; }
   margin-bottom: 14px;
 }
 
-.formula-card .formula-name { font-weight: 700; font-size: 15px; margin-bottom: 8px; }
-.formula-card .formula-latex {
-  overflow-x: auto;
-  padding: 10px 4px;
-  text-align: center;
-  background: var(--color-bg);
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-.formula-card .formula-meaning { font-size: 13.5px; color: var(--color-text); margin-bottom: 8px; line-height: 1.6; }
-.derivation-toggle {
-  font-size: 13px;
-  color: var(--color-primary);
-  cursor: pointer;
-  font-weight: 600;
-  user-select: none;
-}
-.derivation-panel {
-  margin-top: 10px;
-  padding: 10px 14px;
-  background: var(--color-bg);
-  border-radius: 8px;
-  font-size: 13px;
-  line-height: 1.7;
-  display: none;
-}
-.derivation-panel.open { display: block; }
-.derivation-panel ol { margin: 0; padding-left: 18px; }
 .related-chip-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
 .related-chip {
   font-size: 11.5px;
@@ -351,11 +260,7 @@ h2.section-title:first-child { margin-top: 0; }
 .flashcard-face .answer-shortdef { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
 .flashcard-face .answer-intuition { font-size: 13.5px; line-height: 1.7; background: var(--color-bg); padding: 12px 14px; border-radius: 8px; }
 
-.grade-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.grade-buttons .btn { flex-direction: column; padding: 12px 4px; font-size: 12px; gap: 2px; }
-.grade-buttons .btn .grade-emoji { font-size: 18px; }
-
-/* ---------- Quiz ---------- */
+/* ---------- Mock test ---------- */
 .quiz-setup .option-group { margin-bottom: 16px; }
 .quiz-progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; color: var(--color-text-muted); }
 .quiz-question-card { margin-bottom: 16px; }
@@ -398,21 +303,9 @@ h2.section-title:first-child { margin-top: 0; }
   display: none;
 }
 .reveal-box.show { display: block; }
-.keyword-hint { font-size: 12px; margin-top: 6px; }
-.keyword-hint.hit { color: var(--color-success); }
-.keyword-hint.miss { color: var(--color-warn); }
 
 .quiz-result-summary { text-align: center; padding: 20px 0; }
 .quiz-result-summary .result-score { font-size: 40px; font-weight: 800; color: var(--color-primary); }
-.wrong-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 13.5px;
-}
-.wrong-list-item:last-child { border-bottom: none; }
 
 /* ---------- Calc problems (計算問題) ---------- */
 .calc-card { padding: 0; overflow: hidden; }
@@ -564,10 +457,6 @@ h2.section-title:first-child { margin-top: 0; }
 }
 .flow-narrative b { color: var(--color-primary); }
 
-/* Timer bar for time-attack */
-.timer-row { display:flex; align-items:center; gap:8px; font-size:13px; color: var(--color-text-muted); margin-bottom: 10px; }
-.timer-row.low-time { color: var(--color-danger); font-weight:700; }
-
 /* Utility */
 .hidden { display: none !important; }
 .text-center { text-align: center; }
@@ -576,7 +465,3 @@ h2.section-title:first-child { margin-top: 0; }
 .flex-row { display: flex; gap: 8px; }
 .flex-row.wrap { flex-wrap: wrap; }
 .spacer { flex: 1; }
-
-@media (max-width: 420px) {
-  .quick-actions { grid-template-columns: 1fr 1fr; }
-}

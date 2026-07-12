@@ -8,15 +8,15 @@ export function registerRoute(name, renderFn) {
 }
 
 function parseHash() {
-  const hash = location.hash.replace(/^#\//, '') || 'home';
+  const hash = location.hash.replace(/^#\//, '') || 'terms';
   const [route, queryStr] = hash.split('?');
   const params = new URLSearchParams(queryStr || '');
-  return { route: route || 'home', params };
+  return { route: route || 'terms', params };
 }
 
 async function renderCurrentRoute() {
   const { route, params } = parseHash();
-  const renderFn = routes.get(route) || routes.get('home');
+  const renderFn = routes.get(route) || routes.get('terms');
   navItems.forEach((el) => {
     el.classList.toggle('active', el.dataset.route === route);
   });

@@ -1,23 +1,17 @@
 import { loadData } from './data.js';
 import { registerRoute, initRouter } from './router.js';
-import * as home from './screens/home.js';
+import * as terms from './screens/terms.js';
 import * as flashcard from './screens/flashcard.js';
-import * as formulas from './screens/formulas.js';
-import * as flow from './screens/flow.js';
 import * as calc from './screens/calc.js';
-import * as quiz from './screens/quiz.js';
-import * as progress from './screens/progress.js';
+import * as mocktest from './screens/mocktest.js';
 
 async function main() {
   await loadData();
 
-  registerRoute('home', home.render);
+  registerRoute('terms', terms.render);
   registerRoute('flashcard', flashcard.render);
-  registerRoute('formulas', formulas.render);
-  registerRoute('flow', flow.render);
   registerRoute('calc', calc.render);
-  registerRoute('quiz', quiz.render);
-  registerRoute('progress', progress.render);
+  registerRoute('mocktest', mocktest.render);
 
   initRouter();
 
