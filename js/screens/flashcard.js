@@ -72,10 +72,7 @@ function runSession(container, cards) {
       <div class="flashcard-stage">
         <div class="flashcard-face" id="flash-face">
           <div class="direction-hint">用語 → 意味</div>
-          <div id="face-content">
-            <div class="prompt-text">${term.term}</div>
-            <div class="tap-hint">タップして意味を見る</div>
-          </div>
+          <div id="face-content"></div>
         </div>
       </div>
       <div class="flex-row mt-16">
@@ -84,18 +81,32 @@ function runSession(container, cards) {
       </div>
     `;
     revealed = false;
+    const faceContent = container.querySelector('#face-content');
+
+    function renderFace() {
+      if (!revealed) {
+        faceContent.innerHTML = `
+          <div class="prompt-text">${term.term}</div>
+          <div class="tap-hint">タップして意味を見る</div>
+        `;
+      } else {
+        faceContent.innerHTML = `
+          <div class="answer-block">
+            <div class="answer-shortdef">${term.shortDef}</div>
+            <div class="answer-intuition">💡 ${term.intuition}</div>
+          </div>
+          <div class="tap-hint">タップして表に戻す</div>
+        `;
+        renderMath(container);
+        renderMathAuto(container);
+      }
+    }
+    renderFace();
+
     const face = container.querySelector('#flash-face');
     face.addEventListener('click', () => {
-      if (revealed) return;
-      revealed = true;
-      container.querySelector('#face-content').innerHTML = `
-        <div class="answer-block">
-          <div class="answer-shortdef">${term.shortDef}</div>
-          <div class="answer-intuition">💡 ${term.intuition}</div>
-        </div>
-      `;
-      renderMath(container);
-      renderMathAuto(container);
+      revealed = !revealed;
+      renderFace();
     });
     container.querySelector('#prev-btn').addEventListener('click', () => {
       if (index === 0) return;
