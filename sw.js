@@ -2,7 +2,9 @@
 // 戦略：ネットワーク優先（常に最新を取りに行き、失敗した時だけキャッシュを使う）
 // 以前のバージョンはJSファイルを一部しかキャッシュしておらず、キャッシュ命中もネットワーク取得も
 // 失敗した際に respondWith(undefined) となり、画面の中身が表示されない不具合があったため修正。
-const CACHE_NAME = 'jouhouriron-app-v4';
+// また fetch() がブラウザのHTTPキャッシュ経由で古い応答を返し、更新が反映されないことがあったため
+// cache: 'no-store' で常にサーバーへ問い合わせるように修正。
+const CACHE_NAME = 'jouhouriron-app-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -45,7 +47,7 @@ self.addEventListener('fetch', (event) => {
   if (new URL(event.request.url).origin !== self.location.origin) return;
 
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { cache: 'no-store' })
       .then((response) => {
         const clone = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone)).catch(() => {});
